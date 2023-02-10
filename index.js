@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Post = require("./post-model");
 
 mongoose.set("strictQuery", true);
 
@@ -16,9 +17,14 @@ app.get("/", (req, res) => {
   res.status(200).json("Some useful information");
 });
 
-app.post("/users", (req, res) => {
-  console.log(req.body);
-  res.status(200).json("User is created");
+app.post("/posts", async (req, res) => {
+  try {
+    const { author, title, content, picture } = req.body;
+    const post = await Post.create({ author, title, content, picture });
+    res.status(201).json(post);
+  } catch (e) {
+    res.status(500).json(e);
+  }
 });
 
 const start = async () => {
