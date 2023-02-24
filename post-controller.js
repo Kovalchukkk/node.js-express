@@ -24,7 +24,7 @@ class PostController {
     try {
       const { id } = req.params;
       if (!id) {
-        res.status(400).json({ message: "id was not provided" });
+        return res.status(400).json({ message: "id was not provided" });
       }
       const post = await Post.findById(id);
       return res.json(post);
@@ -35,6 +35,14 @@ class PostController {
 
   async update(req, res) {
     try {
+      const post = req.body;
+      if (!post._id) {
+        return res.status(400).json({ message: "id was not provided" });
+      }
+      const updatedPost = await Post.findByIdAndUpdate(post._id, post, {
+        new: true,
+      });
+      return res.json(updatedPost);
     } catch (e) {
       res.status(500).json(e);
     }
