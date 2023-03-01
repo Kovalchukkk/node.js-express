@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./router");
+const fileUpload = require("express-fileupload");
 
 mongoose.set("strictQuery", true);
 
@@ -11,6 +12,8 @@ const DB_URL =
 const app = express();
 
 app.use(express.json());
+app.use(express.static("static"));
+app.use(fileUpload({}));
 app.use("/api", router);
 
 const start = async () => {
