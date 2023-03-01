@@ -28,7 +28,7 @@ class PostController {
       const post = await PostService.getOne(id);
       return res.json(post);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e.message);
     }
   }
 
@@ -54,7 +54,7 @@ class PostController {
       const post = await PostService.delete(id);
       return res.json(post);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e.message);
     }
   }
 }

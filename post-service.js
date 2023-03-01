@@ -12,6 +12,9 @@ class PostService {
   }
 
   async getOne(id) {
+    if (!id) {
+      throw new Error("id was not provided");
+    }
     const post = await Post.findById(id);
     return post;
   }
@@ -24,6 +27,9 @@ class PostService {
   }
 
   async delete(id) {
+    if (!id) {
+      throw new Error("id was not provided");
+    }
     const post = await Post.findByIdAndDelete(id);
     return post;
   }
